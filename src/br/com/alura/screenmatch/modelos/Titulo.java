@@ -1,7 +1,12 @@
 package br.com.alura.screenmatch.modelos;
 
+import br.com.alura.screenmatch.excecao.ErroDeConversaoDeErroException;
+import com.google.gson.annotations.SerializedName;
+
 public class Titulo implements Comparable<Titulo>{
+    @SerializedName("Title")
     private String name;
+    @SerializedName("Year")
     private int year;
     private boolean includedInThePlan;
     private double sumOfRatings;
@@ -11,6 +16,14 @@ public class Titulo implements Comparable<Titulo>{
     public Titulo(String name, int year) {
         this.name = name;
         this.year = year;
+    }
+
+    public Titulo(TituloOmdb myTitleOmdb) {
+        this.name = myTitleOmdb.title();
+        if(myTitleOmdb.year().length() > 4)
+            throw new ErroDeConversaoDeErroException("Ano retornado tem mais de 4 caracteres.");
+        this.year = Integer.valueOf(myTitleOmdb.year());
+        this.durationInMinutes = Integer.valueOf(myTitleOmdb.runtime().substring(0,3));
     }
 
     public int getTotalRating(){
@@ -68,5 +81,12 @@ public class Titulo implements Comparable<Titulo>{
     @Override
     public int compareTo(Titulo anotherTitle) {
         return this.getName().compareTo(anotherTitle.getName());
+    }
+
+    @Override
+    public String toString() {
+        return "name='" + name + '\'' +
+                ", year=" + year +
+                ", runtime=" + durationInMinutes;
     }
 }
