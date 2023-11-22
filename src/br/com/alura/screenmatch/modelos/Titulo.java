@@ -23,7 +23,7 @@ public class Titulo implements Comparable<Titulo>{
         if(myTitleOmdb.year().length() > 4)
             throw new ErroDeConversaoDeErroException("Ano retornado tem mais de 4 caracteres.");
         this.year = Integer.valueOf(myTitleOmdb.year());
-        this.durationInMinutes = Integer.valueOf(myTitleOmdb.runtime().substring(0,3));
+        this.durationInMinutes = Integer.valueOf(myTitleOmdb.runtime().substring(0,2));
     }
 
     public int getTotalRating(){
@@ -85,8 +85,8 @@ public class Titulo implements Comparable<Titulo>{
 
     @Override
     public String toString() {
-        return "name='" + name + '\'' +
+        return "(name='" + name +
                 ", year=" + year +
-                ", runtime=" + durationInMinutes;
+                ", runtime=" + durationInMinutes + ")";
     }
 }
